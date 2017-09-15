@@ -1,0 +1,35 @@
+﻿@model BugTracker.ViewModels.BugsFormViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>@Model.Title</h2>
+
+@using (@Html.BeginForm("Save", "Bugs"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Details);
+        @Html.TextBoxFor(m => m.Details, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Details)
+    </div>    
+    <div class="form-group">
+        @Html.LabelFor(m => m.PriorityId)
+        @Html.DropDownListFor(m => m.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), "Select Priority", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PriorityId)
+    </div>
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken();
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

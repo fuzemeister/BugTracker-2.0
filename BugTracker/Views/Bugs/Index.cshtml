@@ -1,0 +1,40 @@
+﻿@using BugTracker.Models
+@model System.Collections.Generic.IEnumerable<Bug>
+
+@{
+    ViewBag.Title = "Bugs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bugs</h2>
+
+
+@Html.ActionLink("New", "New", "Bugs", null, new { @class = "btn btn-primary" })
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Priority</th>
+        <th>Date created</th>
+        <th>Date modified</th>
+    </tr>
+
+    @foreach (Bug bug in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(@bug.Name, "Edit", "Bugs", new { bug.Id}, null)
+            </td>
+            <td>
+                @bug.Priority.Name
+            </td>
+            <td>
+                @bug.DateCreated.ToString("dd-MM-yyyy HH:mm:ss")
+            </td>
+            <td>
+                @bug.DateModified.ToString("dd-MM-yyyy HH:mm:ss")
+            </td>
+        </tr>
+    }
+    
+</table>
